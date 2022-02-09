@@ -1,0 +1,1 @@
+櫃買中心表示，8日召開上櫃指數股票型基金（ETF）標的指數資格認可審查會議，審議通過永豐證券投資信託公司申請之「Solactive基因科技與創新醫療指數」為發行ETF之指數資格認可一案。櫃買中心表示，「Solactive基因科技與創新醫療指數」（Solactive Gene Technology & Innovative Medication Index）係由Solactive AG指數公司所編製，選取美國紐約證券交易所（NYSE）及那斯達克證券交易所（NASDAQ）上市之股票，先依市值及流動性標準初步篩選樣本，再運用Solactive開發之自然語言處理（NLP）演算法ARTIS系統進行評分及排序，篩選出與基因科技及創新醫療領域相關且具代表性之100檔股票為標的成分證券。

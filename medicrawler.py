@@ -1,9 +1,11 @@
 import requests as rq
 from bs4 import BeautifulSoup as soup
-
+import io
+import sys
+import time
 
 file_name       = "chinatimes.txt"
-headers         = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
+headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36'}
 
 '''
 https://pansci.asia/archives/tag/醫學/page/1
@@ -60,11 +62,42 @@ def crawl_content():
 def crawl_qna():
     url = 'https://sp1.hso.mohw.gov.tw/doctor/All/history.php?UrlClass=%AEa%C2%E5%AC%EC&SortBy=q_no&PageNo='
     i = 1
+    j = 1
     while(1):
         current_url = url + str(i)
-        
-    pass
+        try:
+            res = rq.get(current_url, headers=headers)
+            html = soup(res.text.encode('iso-8859-1').decode('big5'), "html.parser")
+            title = html.find("div", class_="main").find_all("a")
+
+            if len(title) == 0:
+                break
+            for index in range(1, len(title) - min(2, i)):
+                output_file = open(f'q&a/{j}.txt', 'w', encoding='big5')
+                link = 'https://sp1.hso.mohw.gov.tw/doctor/All/' + title[index-1].get('href')
+
+                res = rq.get(link, headers=headers)
+                body = soup(res.content, "html.parser")
+                contents = body.find_all('div', class_='msg')
+
+                p = []
+                for content in contents:
+                    p.append(content.div.getText().strip().replace(' ', '').replace('\r', '').replace('\n', '').replace(u'\u3000', '').replace(u'\xa0', ''))
+
+                try:
+                    output_file.write(' '.join(p))
+                    print(p)
+                except:
+                    continue
+                # print(p)
+                time.sleep(1)
+                output_file.close()
+                j += 1
+        except:
+            pass
+        i = i + 1
+
+    print("all done!")
 
 if __name__ == "__main__":
-    # crawl_url()
-    crawl_content()
+    crawl_qna()

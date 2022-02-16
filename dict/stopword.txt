@@ -1895,3 +1895,17 @@ sup
 ～±
 ～＋
 ￥
+http
+https
+www
+com
+gov
+tw
+hi
+html
+ptt
+ppt
+ok
+org
+php
+no
